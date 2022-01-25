@@ -51,6 +51,8 @@ public class InteligenciaCentralController {
 
         try {
             AdmissaoRebeldesController.analisarAdmissaoRebelde(rebelde);
+
+            System.out.printf("Rebelde %s admitido%n", rebelde.getNome());
             rebeldes.add(rebelde);
         }
         catch (RebeldeReprovadoException e) {
