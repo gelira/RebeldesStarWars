@@ -5,7 +5,11 @@ import br.com.gedev.exceptions.RebeldeReprovadoException;
 import br.com.gedev.models.Rebelde;
 import br.com.gedev.views.CadastroRebeldeView;
 import br.com.gedev.views.MenuView;
+import lombok.Cleanup;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +19,6 @@ public class InteligenciaCentralController {
     public InteligenciaCentralController() {
         rebeldes = new ArrayList<Rebelde>();
     }
-
 
     public void iniciar() {
         while (true) {
@@ -30,6 +33,7 @@ public class InteligenciaCentralController {
                 break;
 
             case 0:
+                salvarRebeldes();
                 System.exit(0);
 
             default:
@@ -57,6 +61,22 @@ public class InteligenciaCentralController {
         }
         catch (RebeldeReprovadoException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void salvarRebeldes() {
+        @Cleanup PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("rebeldes.txt", "UTF-8");
+            for (Rebelde rebelde : rebeldes) {
+                writer.println(rebelde);
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 }
