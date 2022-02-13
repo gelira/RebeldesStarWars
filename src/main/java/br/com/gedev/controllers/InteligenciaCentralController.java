@@ -14,9 +14,11 @@ import java.util.List;
 
 public class InteligenciaCentralController {
     private List<Rebelde> rebeldes;
+    private boolean relatorioGerado;
 
     public InteligenciaCentralController() {
         rebeldes = new LinkedList<Rebelde>();
+        relatorioGerado = false;
     }
 
     public void iniciar() {
@@ -56,12 +58,19 @@ public class InteligenciaCentralController {
     }
 
     private void salvarRebeldes() {
+        if (!relatorioGerado) {
+            salvarRebeldes((Rebelde[]) rebeldes.toArray());
+        }
+    }
+
+    private void salvarRebeldes(Rebelde[] rebeldes) {
         @Cleanup PrintWriter writer = null;
         try {
             writer = new PrintWriter("rebeldes.txt", "UTF-8");
             for (Rebelde rebelde : rebeldes) {
                 writer.println(rebelde);
             }
+            relatorioGerado = true;
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
