@@ -88,14 +88,8 @@ public class InteligenciaCentralController {
     }
 
     private Rebelde[] ordenarRebeldes(RebeldeAttribute attribute) throws UnhandledRebeldeAttributeException {
-        Object[] arrayAux = rebeldes.toArray();
-
-        Rebelde[] arrayRebeldes = new Rebelde[arrayAux.length];
+        Rebelde[] arrayRebeldes = generateArrayRebeldes();
         int arrayMaxIndex = arrayRebeldes.length - 1;
-
-        for (int i = 0; i <= arrayMaxIndex; i ++) {
-            arrayRebeldes[i] = (Rebelde) arrayAux[i];
-        }
 
         // Bubble Sort
         for (int i = 0; i < arrayMaxIndex; i ++) {
@@ -129,7 +123,7 @@ public class InteligenciaCentralController {
 
     private void salvarRebeldes() {
         if (!relatorioGerado) {
-            salvarRebeldes((Rebelde[]) rebeldes.toArray());
+            salvarRebeldes(generateArrayRebeldes());
         }
     }
 
@@ -148,5 +142,18 @@ public class InteligenciaCentralController {
         catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    private Rebelde[] generateArrayRebeldes() {
+        Object[] arrayAux = rebeldes.toArray();
+
+        Rebelde[] arrayRebeldes = new Rebelde[arrayAux.length];
+        int arrayMaxIndex = arrayRebeldes.length - 1;
+
+        for (int i = 0; i <= arrayMaxIndex; i ++) {
+            arrayRebeldes[i] = (Rebelde) arrayAux[i];
+        }
+
+        return arrayRebeldes;
     }
 }
