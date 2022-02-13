@@ -1,12 +1,37 @@
 package br.com.gedev.views;
 
 import br.com.gedev.enums.RacaRebelde;
+import br.com.gedev.models.Rebelde;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class CadastroRebeldeView {
-    public static String askNomeRebelde() {
+    public static Rebelde cadastrar() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        while (true) {
+            Rebelde rebelde = Rebelde.builder()
+                    .nome(askNomeRebelde())
+                    .idade(askIdadeRebelde())
+                    .raca(askRacaRebelde())
+                    .build();
+
+            Set<ConstraintViolation<Rebelde>> constraintViolations = validator.validate(rebelde);
+
+            if (constraintViolations.isEmpty()) {
+                return rebelde;
+            }
+
+            showValidationErrors(constraintViolations);
+        }
+    }
+
+    private static String askNomeRebelde() {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Informe o nome do rebelde: ");
@@ -15,7 +40,7 @@ public class CadastroRebeldeView {
         return nome;
     }
 
-    public static int askIdadeRebelde() {
+    private static int askIdadeRebelde() {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -30,7 +55,7 @@ public class CadastroRebeldeView {
         }
     }
 
-    public static RacaRebelde askRacaRebelde() {
+    private static RacaRebelde askRacaRebelde() {
         RacaRebelde[] racas = RacaRebelde.values();
         int indiceMax = racas.length - 1;
 
@@ -56,5 +81,25 @@ public class CadastroRebeldeView {
                 System.out.printf("Informe um índice entre 0 e %d%n", indiceMax);
             }
         }
+    }
+
+    private static void showValidationErrors(Set<ConstraintViolation<Rebelde>> constraintViolations) {
+        Map<String, String> mapErrors = new HashMap<String, String>();
+
+        constraintViolations.forEach(constraintViolation -> {
+            String property = constraintViolation.getPropertyPath().toString();
+            String message = String.format("%s%n", constraintViolation.getMessage());
+
+            if (mapErrors.containsKey(property)) {
+                message = String.format("%s%s", mapErrors.get(property), message);
+            }
+
+            mapErrors.put(property, message);
+        });
+
+        for (Map.Entry<String, String> errorEntry : mapErrors.entrySet()) {
+            System.out.printf("Atributo: %s%n%s%n", errorEntry.getKey(), errorEntry.getValue());
+        }
+        System.out.println("Tente novamente.");
     }
 }

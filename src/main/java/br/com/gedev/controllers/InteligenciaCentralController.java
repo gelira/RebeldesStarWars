@@ -1,6 +1,5 @@
 package br.com.gedev.controllers;
 
-import br.com.gedev.enums.RacaRebelde;
 import br.com.gedev.exceptions.RebeldeReprovadoException;
 import br.com.gedev.models.Rebelde;
 import br.com.gedev.views.CadastroRebeldeView;
@@ -43,15 +42,7 @@ public class InteligenciaCentralController {
     }
 
     private void cadastrarRebelde() {
-        String nome = CadastroRebeldeView.askNomeRebelde();
-        int idade = CadastroRebeldeView.askIdadeRebelde();
-        RacaRebelde raca = CadastroRebeldeView.askRacaRebelde();
-
-        Rebelde rebelde = Rebelde.builder()
-                .nome(nome)
-                .idade(idade)
-                .raca(raca)
-                .build();
+        Rebelde rebelde = CadastroRebeldeView.cadastrar();
 
         try {
             AdmissaoRebeldesController.analisarAdmissaoRebelde(rebelde);
