@@ -49,4 +49,9 @@ public class Rebelde {
     private boolean racaGreaterThan(Rebelde rebelde) {
         return raca.toString().compareTo(rebelde.getRaca().toString()) > 0;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Nome: %s%nIdade: %d%nRaça: %s", nome, idade, raca);
+    }
 }
