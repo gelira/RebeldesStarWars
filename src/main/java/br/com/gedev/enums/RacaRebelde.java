@@ -7,7 +7,7 @@ public enum RacaRebelde {
 
     private String racaLabel;
 
-    private RacaRebelde(String racaLabel) {
+    RacaRebelde(String racaLabel) {
         this.racaLabel = racaLabel;
     }
 
