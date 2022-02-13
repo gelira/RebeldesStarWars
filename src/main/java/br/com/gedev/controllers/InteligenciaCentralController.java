@@ -10,14 +10,14 @@ import lombok.Cleanup;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InteligenciaCentralController {
     private List<Rebelde> rebeldes;
 
     public InteligenciaCentralController() {
-        rebeldes = new ArrayList<Rebelde>();
+        rebeldes = new LinkedList<Rebelde>();
     }
 
     public void iniciar() {
