@@ -9,6 +9,7 @@ public class MenuView {
 
         while (true) {
             System.out.println("1 - Cadastrar rebelde");
+            System.out.println("2 - Relatório de rebeldes");
             System.out.println("0 - Sair");
             System.out.print("Escolha a opção: ");
 

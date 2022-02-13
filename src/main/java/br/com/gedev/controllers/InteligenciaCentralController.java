@@ -37,6 +37,10 @@ public class InteligenciaCentralController {
                 cadastrarRebelde();
                 break;
 
+            case 2:
+                relatorioRebeldes();
+                break;
+
             case 0:
                 salvarRebeldes();
                 System.exit(0);
