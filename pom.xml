@@ -20,6 +20,21 @@
             <version>1.18.22</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>7.0.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-cdi</artifactId>
+            <version>7.0.2.Final</version>
+        </dependency>
     </dependencies>
 
 </project>
